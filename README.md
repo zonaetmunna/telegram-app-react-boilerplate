@@ -1,206 +1,288 @@
-# Telegram Mini Apps React Template
+# Telegram Mini App React Boilerplate
 
-This template demonstrates how developers can implement a single-page
-application on the Telegram Mini Apps platform using the following technologies
-and libraries:
+A comprehensive React TypeScript boilerplate for building Telegram Mini Apps with modern tooling and best practices.
 
-- [React](https://react.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [TON Connect](https://docs.ton.org/develop/dapps/ton-connect/overview)
-- [@telegram-apps SDK](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk/2-x)
-- [Telegram UI](https://github.com/Telegram-Mini-Apps/TelegramUI)
-- [Vite](https://vitejs.dev/)
+## 🚀 Features
 
-> The template was created using [npm](https://www.npmjs.com/). Therefore, it is
-> required to use it for this project as well. Using other package managers, you
-> will receive a corresponding error.
+### ✨ Enhanced Routing System
 
-## Install Dependencies
+- **Environment-aware routing** - Different routes for development and production
+- **Categorized navigation** - Organized routes by categories (main, debug, profile, settings)
+- **Dynamic route filtering** - Automatically shows/hides routes based on environment
+- **Route metadata** - Icons, descriptions, and permissions for better organization
 
-If you have just cloned this template, you should install the project
-dependencies using the command:
+### 🎨 Modern UI/UX
 
-```Bash
-npm install
+- **Smooth animations** with Framer Motion
+- **Loading states** with custom loading screens
+- **Error boundaries** with environment-specific error handling
+- **Responsive design** optimized for mobile devices
+- **Haptic feedback** integration for better user experience
+
+### 👤 User Management
+
+- **User Profile Page** - Comprehensive user information display
+- **Settings Page** - App preferences and configuration
+- **Session management** - Display and manage user sessions
+- **Environment detection** - Show different features based on environment
+
+### 🛠️ Developer Experience
+
+- **TypeScript** with strict type checking
+- **Environment configuration** for development and production
+- **Debug tools** (only in development mode)
+- **Comprehensive error handling** with detailed error messages
+- **Modern build tools** with Vite
+
+### 📱 Telegram Integration
+
+- **Telegram Apps SDK** v2.0.20+ integration
+- **Theme synchronization** with Telegram themes
+- **TON Connect** integration for blockchain features
+- **Haptic feedback** for native app feel
+- **Viewport management** for optimal display
+
+## 📋 Prerequisites
+
+- Node.js 18+
+- npm or yarn
+- Telegram Bot Token (for testing)
+
+## 🚀 Quick Start
+
+1. **Clone the repository**
+
+   ```bash
+   git clone https://github.com/your-username/telegram-mini-app-boilerplate.git
+   cd telegram-mini-app-boilerplate
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   npm install
+   ```
+
+3. **Configure your app**
+   Edit `src/config/app.ts` with your information:
+
+   ```typescript
+   export const APP_CONFIG = {
+     name: "Your Name",
+     title: "Your App Title",
+     description: "Your app description",
+     version: "1.0.0",
+     telegramUrl: "https://t.me/YourBot",
+     telegramUsername: "@YourBot",
+     // ... your custom features
+   };
+   ```
+
+4. **Start development server**
+
+   ```bash
+   npm run dev
+   ```
+
+5. **Build for production**
+   ```bash
+   npm run build
+   ```
+
+## 🏗️ Project Structure
+
+```
+src/
+├── components/           # Reusable UI components
+│   ├── App.tsx          # Main app component with routing
+│   ├── ErrorBoundary.tsx # Error handling component
+│   ├── LoadingScreen/    # Loading states
+│   └── ...
+├── pages/               # Page components
+│   ├── IndexPage/       # Main dashboard
+│   ├── UserProfilePage/ # User profile and info
+│   ├── SettingsPage/    # App settings
+│   └── ...
+├── navigation/          # Routing configuration
+│   └── routes.tsx       # Route definitions and utilities
+├── config/             # App configuration
+│   └── app.ts          # App settings and features
+├── helpers/            # Utility functions
+└── init.ts             # App initialization
 ```
 
-## Scripts
+## 🔧 Configuration
 
-This project contains the following scripts:
+### Route Configuration
 
-- `dev`. Runs the application in development mode.
-- `build`. Builds the application for production.
-- `lint`. Runs [eslint](https://eslint.org/) to ensure the code quality meets
-  the required standards.
-- `deploy`. Deploys the application to GitHub Pages.
+Routes are defined in `src/navigation/routes.tsx` with enhanced metadata:
 
-To run a script, use the `npm run` command:
-
-```Bash
-npm run {script}
-# Example: npm run build
-```
-
-## Create Bot and Mini App
-
-Before you start, make sure you have already created a Telegram Bot. Here is
-a [comprehensive guide](https://docs.telegram-mini-apps.com/platform/creating-new-app)
-on how to do it.
-
-## Run
-
-Although Mini Apps are designed to be opened
-within [Telegram applications](https://docs.telegram-mini-apps.com/platform/about#supported-applications),
-you can still develop and test them outside of Telegram during the development
-process.
-
-To run the application in the development mode, use the `dev` script:
-
-```bash
-npm run dev
-```
-
-After this, you will see a similar message in your terminal:
-
-```bash
-VITE v5.2.12  ready in 237 ms
-
-➜  Local:   https://localhost:5173/reactjs-template
-➜  Network: https://172.18.16.1:5173/reactjs-template
-➜  Network: https://172.19.32.1:5173/reactjs-template
-➜  Network: https://192.168.0.171:5173/reactjs-template
-➜  press h + enter to show help
-```
-
-Here, you can see the `Local` link, available locally, and `Network` links
-accessible to all devices in the same network with the current device.
-
-To view the application, you need to open the `Local`
-link (`https://localhost:5173/reactjs-template` in this example) in your
-browser:
-
-![Application](assets/application.png)
-
-It is important to note that some libraries in this template, such as
-`@telegram-apps/sdk`, are not intended for use outside of Telegram.
-
-Nevertheless, they appear to function properly. This is because the
-`src/mockEnv.ts` file, which is imported in the application's entry point (
-`src/index.ts`), employs the `mockTelegramEnv` function to simulate the Telegram
-environment. This trick convinces the application that it is running in a
-Telegram-based environment. Therefore, be cautious not to use this function in
-production mode unless you fully understand its implications.
-
-> [!WARNING]
-> Because we are using self-signed SSL certificates, the Android and iOS
-> Telegram applications will not be able to display the application. These
-> operating systems enforce stricter security measures, preventing the Mini App
-> from loading. To address this issue, refer to
-> [this guide](https://docs.telegram-mini-apps.com/platform/getting-app-link#remote).
-
-## Deploy
-
-This boilerplate uses GitHub Pages as the way to host the application
-externally. GitHub Pages provides a CDN which will let your users receive the
-application rapidly. Alternatively, you could use such services
-as [Heroku](https://www.heroku.com/) or [Vercel](https://vercel.com).
-
-### Manual Deployment
-
-This boilerplate uses the [gh-pages](https://www.npmjs.com/package/gh-pages)
-tool, which allows deploying your application right from your PC.
-
-#### Configuring
-
-Before running the deployment process, ensure that you have done the following:
-
-1. Replaced the `homepage` value in `package.json`. The GitHub Pages deploy tool
-   uses this value to
-   determine the related GitHub project.
-2. Replaced the `base` value in `vite.config.ts` and have set it to the name of
-   your GitHub
-   repository. Vite will use this value when creating paths to static assets.
-
-For instance, if your GitHub username is `telegram-mini-apps` and the repository
-name is `is-awesome`, the value in the `homepage` field should be the following:
-
-```json
-{
-  "homepage": "https://telegram-mini-apps.github.io/is-awesome"
+```typescript
+export interface Route {
+  path: string;
+  Component: ComponentType;
+  title?: string;
+  icon?: JSX.Element;
+  showInNavigation?: boolean;
+  requiresAuth?: boolean;
+  showInDev?: boolean;
+  showInProd?: boolean;
+  description?: string;
+  category?: "main" | "debug" | "profile" | "settings";
 }
 ```
 
-And `vite.config.ts` should have this content:
+### Environment-Specific Features
 
-```ts
-export default defineConfig({
-  base: '/is-awesome/',
-  // ...
-});
+The app automatically adjusts features based on the environment:
+
+**Development Mode:**
+
+- Shows all routes including debug tools
+- Detailed error messages
+- Debug information in UI
+- Developer settings panel
+
+**Production Mode:**
+
+- Only essential routes visible
+- Simplified error messages
+- Optimized performance
+- User-focused features only
+
+## 📱 Pages Overview
+
+### 🏠 Home Page (`/`)
+
+- App overview and navigation
+- Categorized feature access
+- Environment-specific tools
+- Quick actions for common tasks
+
+### 👤 User Profile (`/profile`)
+
+- User information display
+- Session details
+- Account status
+- Profile management
+
+### ⚙️ Settings (`/settings`)
+
+- App preferences
+- Theme configuration
+- Notification settings
+- Developer options (dev mode only)
+
+### 🔗 TON Connect (`/ton-connect`)
+
+- Blockchain wallet connection
+- Transaction management
+- Wallet information display
+
+### 🛠️ Debug Tools (Development Only)
+
+- Init Data (`/init-data`)
+- Theme Parameters (`/theme-params`)
+- Launch Parameters (`/launch-params`)
+
+## 🎨 Customization
+
+### Adding New Routes
+
+1. Create your page component
+2. Add route definition in `src/navigation/routes.tsx`
+3. Configure route metadata (category, visibility, etc.)
+
+```typescript
+{
+  path: "/your-page",
+  Component: YourPageComponent,
+  title: "Your Page",
+  showInNavigation: true,
+  showInDev: true,
+  showInProd: true,
+  category: 'main',
+  description: "Your page description"
+}
 ```
 
-You can find more information on configuring the deployment in the `gh-pages`
-[docs](https://github.com/tschaub/gh-pages?tab=readme-ov-file#github-pages-project-sites).
+### Customizing Themes
 
-#### Before Deploying
+The app automatically syncs with Telegram themes. You can customize additional styling in your components using CSS variables:
 
-Before deploying the application, make sure that you've built it and going to
-deploy the fresh static files:
-
-```bash
-npm run build
+```css
+/* Telegram theme variables are automatically available */
+.your-component {
+  background-color: var(--tg-theme-bg-color);
+  color: var(--tg-theme-text-color);
+}
 ```
 
-Then, run the deployment process, using the `deploy` script:
+## 🚀 Deployment
 
-```Bash
-npm run deploy
-```
+### GitHub Pages
 
-After the deployment completed successfully, visit the page with data according
-to your username and repository name. Here is the page link example using the
-data mentioned above:
-https://telegram-mini-apps.github.io/is-awesome
+1. Update the `homepage` field in `package.json`
+2. Build and deploy:
+   ```bash
+   npm run build
+   npm run deploy
+   ```
 
-### GitHub Workflow
+### Vercel/Netlify
 
-To simplify the deployment process, this template includes a
-pre-configured [GitHub workflow](.github/workflows/github-pages-deploy.yml) that
-automatically deploys the project when changes are pushed to the `master`
-branch.
+1. Connect your repository
+2. Set build command: `npm run build`
+3. Set publish directory: `dist`
 
-To enable this workflow, create a new environment (or edit the existing one) in
-the GitHub repository settings and name it `github-pages`. Then, add the
-`master` branch to the list of deployment branches.
+## 🔐 Security Considerations
 
-You can find the environment settings using this
-URL: `https://github.com/{username}/{repository}/settings/environments`.
+- Debug routes are automatically hidden in production
+- Error messages are sanitized for production
+- Environment-specific configurations
+- Secure handling of user data
 
-![img.png](.github/deployment-branches.png)
+## 🧪 Testing
 
-In case, you don't want to do it automatically, or you don't use GitHub as the
-project codebase, remove the `.github` directory.
+- Test in both development and production environments
+- Verify proper route filtering
+- Test error boundaries
+- Validate user profile functionality
+- Check settings persistence
 
-### GitHub Web Interface
+## 📚 Documentation
 
-Alternatively, developers can configure automatic deployment using the GitHub
-web interface. To do this, follow the link:
-`https://github.com/{username}/{repository}/settings/pages`.
+- **TypeScript** - Full type safety
+- **Component documentation** - Inline JSDoc comments
+- **Route metadata** - Comprehensive route descriptions
+- **Environment guides** - Development and production setup
 
-## TON Connect
+## 🤝 Contributing
 
-This boilerplate utilizes
-the [TON Connect](https://docs.ton.org/develop/dapps/ton-connect/overview)
-project to demonstrate how developers can integrate functionality related to TON
-cryptocurrency.
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
 
-The TON Connect manifest used in this boilerplate is stored in the `public`
-folder, where all publicly accessible static files are located. Remember
-to [configure](https://docs.ton.org/develop/dapps/ton-connect/manifest) this
-file according to your project's information.
+## 📄 License
 
-## Useful Links
+This project is licensed under the MIT License - see the LICENSE file for details.
 
-- [Platform documentation](https://docs.telegram-mini-apps.com/)
-- [@telegram-apps/sdk-react documentation](https://docs.telegram-mini-apps.com/packages/telegram-apps-sdk-react)
-- [Telegram developers community chat](https://t.me/devs)
+## 🙏 Acknowledgments
+
+- [Telegram Apps SDK](https://github.com/Telegram-Mini-Apps/telegram-apps) - Official Telegram Mini Apps SDK
+- [Telegram UI](https://github.com/Telegram-Mini-Apps/telegram-ui) - UI components for Telegram Mini Apps
+- [React Router](https://reactrouter.com/) - Routing library
+- [Framer Motion](https://www.framer.com/motion/) - Animation library
+- [Vite](https://vitejs.dev/) - Build tool
+
+## 📞 Support
+
+- Create an issue for bug reports
+- Join our Telegram community: [Your Telegram Link]
+- Check the documentation for common questions
+
+---
+
+Built with ❤️ for the Telegram Mini Apps ecosystem

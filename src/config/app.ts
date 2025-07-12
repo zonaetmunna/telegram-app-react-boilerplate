@@ -11,8 +11,8 @@ export const APP_CONFIG = {
   version: '1.0.0',
   
   // Telegram configuration
-  telegramUrl: 'https://t.me/your_bot_name',
-  telegramUsername: '@your_bot_username',
+  telegramUrl: 'https://t.me/ZonaetBoilerPlateBot',
+  telegramUsername: '@ZonaetBoilerPlateBot',
   
   // Your custom listings
   listings: [
@@ -21,28 +21,28 @@ export const APP_CONFIG = {
       title: 'Feature 1',
       description: 'Description for your first feature',
       icon: '🚀',
-      telegramUrl: 'https://t.me/your_bot_name?start=feature1',
+      telegramUrl: 'https://t.me/ZonaetBoilerPlateBot?start=feature1',
     },
     {
       id: 2,
       title: 'Feature 2', 
       description: 'Description for your second feature',
       icon: '✨',
-      telegramUrl: 'https://t.me/your_bot_name?start=feature2',
+      telegramUrl: 'https://t.me/ZonaetBoilerPlateBot?start=feature2',
     },
     {
       id: 3,
       title: 'Feature 3',
       description: 'Description for your third feature',
       icon: '🎯',
-      telegramUrl: 'https://t.me/your_bot_name?start=feature3',
+      telegramUrl: 'https://t.me/ZonaetBoilerPlateBot?start=feature3',
     },
     {
       id: 4,
       title: 'Support',
       description: 'Get help and support',
       icon: '💬',
-      telegramUrl: 'https://t.me/your_bot_name?start=support',
+      telegramUrl: 'https://t.me/ZonaetBoilerPlateBot?start=support',
     },
   ],
 } as const;
