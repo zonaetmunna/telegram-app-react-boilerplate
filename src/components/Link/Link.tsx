@@ -1,5 +1,6 @@
-import { classNames, openLink } from '@telegram-apps/sdk-react';
-import { type FC, type MouseEventHandler, useCallback } from 'react';
+import { openLink } from '@telegram-apps/sdk-react';
+import { clsx } from 'clsx';
+import { useCallback, type FC, type MouseEventHandler } from 'react';
 import { Link as RouterLink, type LinkProps } from 'react-router-dom';
 
 import './Link.css';
@@ -33,6 +34,6 @@ export const Link: FC<LinkProps> = ({ className, onClick: propsOnClick, to, ...r
 	);
 
 	return (
-		<RouterLink {...rest} to={to} onClick={onClick} className={classNames(className, 'link')} />
+		<RouterLink {...rest} to={to} onClick={onClick} className={clsx(className, 'link')} />
 	);
 };

@@ -14,14 +14,22 @@ export function Page({
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (back) {
-      backButton.show();
-      return backButton.onClick(() => {
-        navigate(-1);
-      });
+    try {
+      if (back) {
+        // Try to show the back button
+        backButton.show();
+        return backButton.onClick(() => {
+          navigate(-1);
+        });
+      } else {
+        // Try to hide the back button
+        backButton.hide();
+      }
+    } catch (error) {
+      // Silently handle the case where backButton is not mounted
+      console.warn("BackButton component not available:", error);
     }
-    backButton.hide();
-  }, [back]);
+  }, [back, navigate]);
 
   return <>{children}</>;
 }

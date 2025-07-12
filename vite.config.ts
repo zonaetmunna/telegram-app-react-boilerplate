@@ -20,6 +20,35 @@ export default defineConfig({
   server: {
     // Exposes your dev server and makes it accessible for the devices in the same network.
     host: true,
+    port: 5173,
+    strictPort: true,
+    hmr: {
+      // Ensure HMR works properly in development
+      port: 5173,
+    },
   },
-  mode: "development",
+  build: {
+    outDir: "dist",
+    sourcemap: false,
+    // Optimize for production
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          'telegram-ui': ['@telegram-apps/telegram-ui'],
+          'telegram-sdk': ['@telegram-apps/sdk-react'],
+          'router': ['react-router-dom'],
+          'motion': ['framer-motion'],
+        },
+      },
+    },
+  },
+  // Environment variables
+  define: {
+    'import.meta.env.VITE_APP_VERSION': JSON.stringify(process.env.npm_package_version || '1.0.0'),
+  },
+  // Ensure proper HTTPS in production
+  preview: {
+    port: 5173,
+    host: true,
+  },
 });

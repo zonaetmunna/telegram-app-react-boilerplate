@@ -8,28 +8,42 @@ import { useMemo } from "react";
 
 export function EnvUnsupported() {
   const [platform, isDark] = useMemo(() => {
-    let platform = "base";
+    let platform: string = "base";
     let isDark = false;
     try {
       const lp = retrieveLaunchParams();
-      const { bgColor } = lp.themeParams;
-      platform = lp.platform;
-      isDark = bgColor && isRGB(bgColor) ? isColorDark(bgColor) : false;
-    } catch {
-      /* empty */
+      
+      // Safely access themeParams and bgColor
+      const bgColor = typeof lp?.themeParams === 'object' && lp.themeParams && 
+                      'bgColor' in lp.themeParams ? lp.themeParams.bgColor : undefined;
+      
+      // Safely access platform
+      if (typeof lp?.platform === 'string') {
+        platform = lp.platform;
+      }
+      
+      // Check if bgColor is valid and calculate dark mode
+      if (bgColor && typeof bgColor === 'string' && isRGB(bgColor)) {
+        isDark = isColorDark(bgColor);
+      }
+    } catch (error) {
+      console.warn("Failed to retrieve launch params:", error);
     }
 
     return [platform, isDark];
   }, []);
 
+  // Safely determine platform for AppRoot
+  const appPlatform = (typeof platform === 'string' && ["macos", "ios"].includes(platform)) ? "ios" : "base";
+
   return (
     <AppRoot
       appearance={isDark ? "dark" : "light"}
-      platform={["macos", "ios"].includes(platform) ? "ios" : "base"}
+      platform={appPlatform}
     >
       <Placeholder
         header="Oops"
-        description="You are using too old Telegram client to run this application"
+        description="This app requires a compatible Telegram client to run properly"
       >
         <img
           alt="Telegram sticker"

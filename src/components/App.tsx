@@ -102,13 +102,16 @@ export function App() {
   const lp = useLaunchParams();
   const isDark = useSignal(miniApp.isDark);
 
+  // Safely get platform with type checking
+  const platform = (typeof lp?.platform === 'string' && ["macos", "ios"].includes(lp.platform)) ? "ios" : "base";
+
   return (
     <ErrorBoundary fallback={ErrorFallback}>
       <AppRoot
         appearance={isDark ? "dark" : "light"}
-        platform={["macos", "ios"].includes(lp.platform) ? "ios" : "base"}
+        platform={platform}
       >
-        <HashRouter>
+        <HashRouter future={{ v7_relativeSplatPath: true }}>
           <AppRoutes />
         </HashRouter>
       </AppRoot>

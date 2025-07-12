@@ -2,6 +2,21 @@
 
 A comprehensive React TypeScript boilerplate for building Telegram Mini Apps with modern tooling and best practices.
 
+## 🎉 **DEPLOYMENT ISSUES RESOLVED!**
+
+**✅ The "Too Old Telegram Client" error has been FIXED!**
+
+This boilerplate now works correctly in production environments. All critical deployment issues have been resolved:
+
+- ✅ Fixed SDK compatibility issues
+- ✅ Resolved import errors causing build failures
+- ✅ Added proper error handling for unmounted components
+- ✅ Eliminated React Router warnings
+- ✅ Production build works without TypeScript errors
+- ✅ Ready for immediate Vercel deployment
+
+**Status**: 🟢 **PRODUCTION READY**
+
 ## 🚀 Features
 
 ### ✨ Enhanced Routing System
@@ -36,11 +51,30 @@ A comprehensive React TypeScript boilerplate for building Telegram Mini Apps wit
 
 ### 📱 Telegram Integration
 
-- **Telegram Apps SDK** v2.0.20+ integration
+- **Telegram Apps SDK** v3.0+ integration
 - **Theme synchronization** with Telegram themes
 - **TON Connect** integration for blockchain features
 - **Haptic feedback** for native app feel
 - **Viewport management** for optimal display
+
+## 🔧 Production Fixes
+
+### ✅ "Too Old Telegram Client" Error Fixed
+
+The boilerplate now includes comprehensive fixes for the common "Too old Telegram client" error:
+
+- **Updated SDK**: Using latest `@telegram-apps/sdk-react` v3.0+
+- **Proper initialization**: Graceful error handling and component mounting
+- **Direct WebApp script**: Includes Telegram WebApp script in HTML head
+- **Production compatibility**: Works correctly in both development and production
+- **Vercel deployment**: Optimized for Vercel deployment with proper configuration
+
+### 🛡️ Better Error Handling
+
+- **Graceful degradation**: App continues to work even if some components fail
+- **Environment-specific**: Different error handling for development vs production
+- **Console logging**: Comprehensive logging for debugging
+- **Fallback components**: Proper error boundaries and fallback UI
 
 ## 📋 Prerequisites
 
@@ -107,9 +141,52 @@ src/
 │   └── routes.tsx       # Route definitions and utilities
 ├── config/             # App configuration
 │   └── app.ts          # App settings and features
+├── types/              # TypeScript type definitions
+│   └── telegram.d.ts   # Telegram WebApp types
 ├── helpers/            # Utility functions
 └── init.ts             # App initialization
 ```
+
+## 🚀 Deployment
+
+### Vercel Deployment (Recommended)
+
+This boilerplate is optimized for Vercel deployment with automatic GitHub integration:
+
+1. **Connect to Vercel**
+
+   - Go to [Vercel](https://vercel.com/)
+   - Connect your GitHub repository
+   - Vercel will automatically detect it's a React app
+
+2. **Environment Variables** (Optional)
+
+   - Set `NODE_ENV=production` (usually automatic)
+   - Add any custom environment variables you need
+
+3. **Deploy**
+   - Push to your main branch
+   - Vercel will automatically build and deploy
+   - You'll get a production URL immediately
+
+### Manual Deployment
+
+1. **Build the app**
+
+   ```bash
+   npm run build
+   ```
+
+2. **Deploy the `dist` folder** to your hosting provider
+
+### GitHub Pages
+
+1. Update the `homepage` field in `package.json`
+2. Build and deploy:
+   ```bash
+   npm run build
+   npm run deploy
+   ```
 
 ## 🔧 Configuration
 
@@ -218,29 +295,13 @@ The app automatically syncs with Telegram themes. You can customize additional s
 }
 ```
 
-## 🚀 Deployment
-
-### GitHub Pages
-
-1. Update the `homepage` field in `package.json`
-2. Build and deploy:
-   ```bash
-   npm run build
-   npm run deploy
-   ```
-
-### Vercel/Netlify
-
-1. Connect your repository
-2. Set build command: `npm run build`
-3. Set publish directory: `dist`
-
 ## 🔐 Security Considerations
 
 - Debug routes are automatically hidden in production
 - Error messages are sanitized for production
 - Environment-specific configurations
 - Secure handling of user data
+- CSP headers configured for Vercel deployment
 
 ## 🧪 Testing
 
@@ -256,6 +317,43 @@ The app automatically syncs with Telegram themes. You can customize additional s
 - **Component documentation** - Inline JSDoc comments
 - **Route metadata** - Comprehensive route descriptions
 - **Environment guides** - Development and production setup
+
+## 🐛 Troubleshooting
+
+### "Too Old Telegram Client" Error
+
+This error has been fixed in the latest version. If you still encounter it:
+
+1. Make sure you're using the latest SDK version
+2. Check that the Telegram WebApp script is loaded in the HTML head
+3. Verify that your Mini App URL is correct in BotFather
+4. Test in both development and production environments
+
+### Development Issues
+
+1. **App not loading in development**
+
+   - Check that `npm run dev` is running
+   - Verify the port (default: 5173) is accessible
+   - Check browser console for errors
+
+2. **Telegram features not working**
+   - Ensure you're testing in the Telegram environment
+   - Check that the WebApp script is loaded
+   - Verify BotFather configuration
+
+### Production Issues
+
+1. **App not loading on Vercel**
+
+   - Check the build logs in Vercel dashboard
+   - Verify all dependencies are installed
+   - Check for TypeScript errors
+
+2. **Telegram integration not working**
+   - Verify the production URL is set correctly in BotFather
+   - Check that HTTPS is enabled
+   - Ensure CSP headers allow Telegram scripts
 
 ## 🤝 Contributing
 

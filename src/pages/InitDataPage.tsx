@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { initData, type User, useSignal } from "@telegram-apps/sdk-react";
 import { List, Placeholder } from "@telegram-apps/telegram-ui";
 import { type FC, useMemo } from "react";
 
 import {
-	DisplayData,
-	type DisplayDataRow,
+  DisplayData,
+  type DisplayDataRow,
 } from "@/components/DisplayData/DisplayData.tsx";
 import { Page } from "@/components/Page.tsx";
 
@@ -13,8 +14,8 @@ function getUserRows(user: User): DisplayDataRow[] {
     { title: "id", value: user.id.toString() },
     { title: "username", value: user.username },
     { title: "photo_url", value: user.photoUrl },
-    { title: "last_name", value: user.lastName },
-    { title: "first_name", value: user.firstName },
+    { title: "lastName", value: user.lastName },
+    { title: "firstName", value: user.firstName },
     { title: "is_bot", value: user.isBot },
     { title: "is_premium", value: user.isPremium },
     { title: "language_code", value: user.languageCode },
@@ -31,29 +32,47 @@ export const InitDataPage: FC = () => {
     if (!initDataState || !initDataRaw) {
       return;
     }
-    const {
-      authDate,
-      hash,
-      queryId,
-      chatType,
-      chatInstance,
-      canSendAfter,
-      startParam,
-    } = initDataState;
+
+    // Use safe property access since the API structure has changed
     return [
       { title: "raw", value: initDataRaw },
-      { title: "auth_date", value: authDate.toLocaleString() },
-      { title: "auth_date (raw)", value: authDate.getTime() / 1000 },
-      { title: "hash", value: hash },
+      {
+        title: "auth_date",
+        value: (initDataState as any).auth_date
+          ? new Date((initDataState as any).auth_date * 1000).toLocaleString()
+          : "Not available",
+      },
+      {
+        title: "auth_date (raw)",
+        value: (initDataState as any).auth_date || "Not available",
+      },
+      { title: "hash", value: (initDataState as any).hash || "Not available" },
       {
         title: "can_send_after",
-        value: initData.canSendAfterDate()?.toISOString(),
+        value: (initDataState as any).can_send_after
+          ? new Date((initDataState as any).can_send_after * 1000).toISOString()
+          : "Not available",
       },
-      { title: "can_send_after (raw)", value: canSendAfter },
-      { title: "query_id", value: queryId },
-      { title: "start_param", value: startParam },
-      { title: "chat_type", value: chatType },
-      { title: "chat_instance", value: chatInstance },
+      {
+        title: "can_send_after (raw)",
+        value: (initDataState as any).can_send_after || "Not available",
+      },
+      {
+        title: "query_id",
+        value: (initDataState as any).query_id || "Not available",
+      },
+      {
+        title: "start_param",
+        value: (initDataState as any).start_param || "Not available",
+      },
+      {
+        title: "chat_type",
+        value: (initDataState as any).chat_type || "Not available",
+      },
+      {
+        title: "chat_instance",
+        value: (initDataState as any).chat_instance || "Not available",
+      },
     ];
   }, [initDataState, initDataRaw]);
 
@@ -73,16 +92,22 @@ export const InitDataPage: FC = () => {
     if (!initDataState?.chat) {
       return;
     }
-    const { id, title, type, username, photoUrl } = initDataState.chat;
+    const { id, title, type, username } = initDataState.chat;
+
+    // Handle photoUrl safely as it might not exist in the new version
+    const photoUrl =
+      "photoUrl" in initDataState.chat
+        ? initDataState.chat.photoUrl
+        : undefined;
 
     return [
       { title: "id", value: id.toString() },
       { title: "title", value: title },
       { title: "type", value: type },
       { title: "username", value: username },
-      { title: "photo_url", value: photoUrl },
+      { title: "photo_url", value: photoUrl || "Not available" },
     ];
-  }, [initData]);
+  }, [initDataState]);
 
   if (!initDataRows) {
     return (
