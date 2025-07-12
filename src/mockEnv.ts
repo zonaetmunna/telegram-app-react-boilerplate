@@ -11,6 +11,7 @@ import {
 // `false` and the code inside will be tree-shaken (removed), so you will not
 // see it in your final bundle.
 if (import.meta.env.DEV) {
+  console.log("Mocking environment...");
   await (async () => {
     if (await isTMA()) {
       return;
